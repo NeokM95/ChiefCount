@@ -1,4 +1,4 @@
-package nl.koenm.chiefcount;
+package nl.koenm.chiefcount.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,13 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/admin")
-public class AdminController {
-
+@RequestMapping("api/v1/teacher")
+public class TeacherController {
 
     @GetMapping
-    public ResponseEntity<Object> greetAdmin(){
-        return ResponseEntity.ok("Hi Admin");
+    public ResponseEntity<Object> greetTeacher(){
+        return ResponseEntity.ok("Hi Teacher");
     }
 
 }
