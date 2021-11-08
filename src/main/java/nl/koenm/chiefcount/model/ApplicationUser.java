@@ -21,15 +21,15 @@ public class ApplicationUser {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "First name cannot be blank")
-    private String firstName;
-
-    @NotBlank(message = "Last name cannot be blank")
-    private String lastName;
-
-    @NotBlank(message = "Email cannot be blank")
-    @Email(message = "Enter a valid email")
-    private String email;
+//    @NotBlank(message = "First name cannot be blank")
+//    private String firstName;
+//
+//    @NotBlank(message = "Last name cannot be blank")
+//    private String lastName;
+//
+//    @NotBlank(message = "Email cannot be blank")
+//    @Email(message = "Enter a valid email")
+//    private String email;
 
     @NotBlank(message = "Username cannot be blank")
     @Size(min = 4, message = "Username must be at least 4 characters")
@@ -38,6 +38,8 @@ public class ApplicationUser {
     @NotBlank(message = "Password cannot be blank")
     @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
+
+    private boolean enabled;
 
     @OneToMany(
             targetEntity = Authority.class,
