@@ -1,12 +1,14 @@
 package nl.koenm.chiefcount.controller;
 
 import nl.koenm.chiefcount.dto.request.CreateAppUserRequest;
+import nl.koenm.chiefcount.model.ApplicationUser;
 import nl.koenm.chiefcount.service.AdminService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/admin")
@@ -18,13 +20,15 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    @GetMapping
+    @GetMapping("/greet")
     public ResponseEntity<Object> greetAdmin(){
         return ResponseEntity.ok("Hi Admin");
     }
 
-//    @GetMapping("view/all")
-//    public
+    @GetMapping
+    public List<ApplicationUser> getAllUsers() {
+        return adminService.getAllUsers();
+    }
 
     @PostMapping("create/admin")
     public ResponseEntity<Object> createAdmin(@RequestBody CreateAppUserRequest createAdmin){

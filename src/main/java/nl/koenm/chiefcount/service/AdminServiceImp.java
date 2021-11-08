@@ -6,6 +6,8 @@ import nl.koenm.chiefcount.repository.AdminRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AdminServiceImp implements AdminService{
 
@@ -74,6 +76,16 @@ public class AdminServiceImp implements AdminService{
         }
         catch (Exception ex) {
             throw new RuntimeException("Cannot create Student.");
+        }
+    }
+
+    @Override
+    public List<ApplicationUser> getAllUsers() {
+        try {
+            return adminRepository.findAll();
+        }
+        catch (Exception ex) {
+            throw new RuntimeException("Cannot create list.");
         }
     }
 }

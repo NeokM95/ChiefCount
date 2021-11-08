@@ -17,9 +17,9 @@ import java.util.Set;
 @AllArgsConstructor
 public class ApplicationUser {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    private Long id;
 
 //    @NotBlank(message = "First name cannot be blank")
 //    private String firstName;
@@ -31,6 +31,7 @@ public class ApplicationUser {
 //    @Email(message = "Enter a valid email")
 //    private String email;
 
+    @Id
     @NotBlank(message = "Username cannot be blank")
     @Size(min = 4, message = "Username must be at least 4 characters")
     private String username;
