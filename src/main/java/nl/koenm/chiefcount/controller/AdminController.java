@@ -25,7 +25,7 @@ public class AdminController {
         return ResponseEntity.ok("Hi Admin");
     }
 
-    @GetMapping
+    @GetMapping("/view/all")
     public List<ApplicationUser> getAllUsers() {
         return adminService.getAllUsers();
     }

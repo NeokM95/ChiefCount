@@ -17,6 +17,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.sql.DataSource;
 
+import static org.springframework.http.HttpMethod.POST;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -63,14 +65,14 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic()
                 .and()
-//                .authorizeRequests()
-//                    .antMatchers(POST, "/create-user").permitAll()
-//                    .antMatchers(POST, "/authenticate").permitAll()
-//                    .antMatchers("/users/**").hasRole("USER")
-//                    .antMatchers("/members/**").hasRole("MEMBER")
-//                    .antMatchers("/admin/**").hasRole("ADMIN")
+                .authorizeRequests()
+                .antMatchers(POST,"/authenticate").permitAll()
+//                .antMatchers("/admin/**").permitAll()
+//                .antMatchers("api/v1/admin/**").hasRole("ADMIN")
+//                .antMatchers("/student/**").hasRole("STUDENT")
+//                .antMatchers("/teacher/**").hasRole("TEACHER")
 //                .anyRequest().denyAll()
-//                .and()
+                .and()
                 .csrf().disable()
                 .formLogin().disable()
                 .sessionManagement()
