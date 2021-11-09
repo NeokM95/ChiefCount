@@ -27,9 +27,10 @@ public class AdminServiceImp implements AdminService{
             ApplicationUser user = new ApplicationUser();
             user.setUsername(createAdmin.getUsername());
             user.setPassword(encryptedPassword);
+            user.setEmail(createAdmin.getEmail());
             user.setEnabled(true);
-            user.addAuthority("ROLE_STUDENT");
-            user.addAuthority("ROLE_TEACHER");
+//            user.addAuthority("ROLE_STUDENT");
+//            user.addAuthority("ROLE_TEACHER");
             user.addAuthority("ROLE_ADMIN");
 
             ApplicationUser newUser = adminRepository.save(user);
@@ -48,8 +49,9 @@ public class AdminServiceImp implements AdminService{
             ApplicationUser user = new ApplicationUser();
             user.setUsername(createTeacher.getUsername());
             user.setPassword(encryptedPassword);
+            user.setEmail(createTeacher.getEmail());
             user.setEnabled(true);
-            user.addAuthority("ROLE_STUDENT");
+//            user.addAuthority("ROLE_STUDENT");
             user.addAuthority("ROLE_TEACHER");
 
             ApplicationUser newUser = adminRepository.save(user);
@@ -68,6 +70,7 @@ public class AdminServiceImp implements AdminService{
             ApplicationUser user = new ApplicationUser();
             user.setUsername(createStudent.getUsername());
             user.setPassword(encryptedPassword);
+            user.setEmail(createStudent.getEmail());
             user.setEnabled(true);
             user.addAuthority("ROLE_STUDENT");
 

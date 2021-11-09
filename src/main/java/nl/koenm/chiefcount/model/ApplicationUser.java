@@ -18,19 +18,6 @@ import java.util.Set;
 @Table(name = "users")
 public class ApplicationUser {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Long id;
-
-//    @NotBlank(message = "First name cannot be blank")
-//    private String firstName;
-//
-//    @NotBlank(message = "Last name cannot be blank")
-//    private String lastName;
-//
-//    @NotBlank(message = "Email cannot be blank")
-//    @Email(message = "Enter a valid email")
-//    private String email;
 
     @Id
     @NotBlank(message = "Username cannot be blank")
@@ -41,6 +28,12 @@ public class ApplicationUser {
     @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
 
+    @Email(message = "Enter a valid email")
+    private String email;
+
+
+
+    @Column(name = "enabled")
     private boolean enabled;
 
     @OneToMany(
