@@ -3,12 +3,10 @@ package nl.koenm.chiefcount.model;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
+@Inheritance
 @Entity
 @Getter
 @Setter
@@ -20,9 +18,18 @@ public class ApplicationUser {
 
 
     @Id
+    @Column
     private String username;
+    @Column
     private String password;
+    @Column
     private String email;
+    @Column
+    private int plusMinus;
+    @Column
+    private int divide;
+    @Column
+    private int multiply;
 
     private boolean enabled;
 
