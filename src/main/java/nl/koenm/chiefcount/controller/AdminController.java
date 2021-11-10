@@ -1,6 +1,8 @@
 package nl.koenm.chiefcount.controller;
 
 import nl.koenm.chiefcount.dto.request.CreateAppUserRequest;
+import nl.koenm.chiefcount.exceptions.AlreadyInUseException;
+import nl.koenm.chiefcount.exceptions.WeakPasswordException;
 import nl.koenm.chiefcount.model.ApplicationUser;
 import nl.koenm.chiefcount.service.AdminService;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +36,7 @@ public class AdminController {
     @PostMapping("create/admin")
     public ResponseEntity<Object> createAdmin(
             @Valid
-            @RequestBody CreateAppUserRequest createAdmin){
+            @RequestBody CreateAppUserRequest createAdmin) throws AlreadyInUseException, WeakPasswordException {
 
         String newUsername = adminService.createAdmin(createAdmin);
 
@@ -46,7 +48,7 @@ public class AdminController {
 
 
     @PostMapping("create/teacher")
-    public ResponseEntity<Object> createTeacher(@RequestBody CreateAppUserRequest createTeacher){
+    public ResponseEntity<Object> createTeacher(@RequestBody CreateAppUserRequest createTeacher) throws AlreadyInUseException, WeakPasswordException {
 
         String newUsername = adminService.createTeacher(createTeacher);
 

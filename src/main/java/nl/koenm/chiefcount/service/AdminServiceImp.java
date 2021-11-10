@@ -1,6 +1,8 @@
 package nl.koenm.chiefcount.service;
 
 import nl.koenm.chiefcount.dto.request.CreateAppUserRequest;
+import nl.koenm.chiefcount.exceptions.AlreadyInUseException;
+import nl.koenm.chiefcount.exceptions.WeakPasswordException;
 import nl.koenm.chiefcount.model.ApplicationUser;
 import nl.koenm.chiefcount.repository.AdminRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,18 +22,18 @@ public class AdminServiceImp implements AdminService{
     }
 
     @Override
-    public String createAdmin(CreateAppUserRequest createAdmin) {
+    public String createAdmin(CreateAppUserRequest createAdmin) throws AlreadyInUseException, WeakPasswordException {
 
         if(adminRepository.existsByEmail(createAdmin.getEmail())){
-            throw new RuntimeException(createAdmin.getEmail() + " Already in use!");
+            throw new AlreadyInUseException(createAdmin.getEmail() + " Already in use!");
         }
 
         if (adminRepository.existsById(createAdmin.getUsername())){
-            throw new RuntimeException(createAdmin.getUsername() + " Already in use!");
+            throw new AlreadyInUseException(createAdmin.getUsername() + " Already in use!");
         }
 
         if(isValidPassword(createAdmin.getPassword())){
-            throw new RuntimeException("Geen sterk wachtwoord");
+            throw new WeakPasswordException("Geen sterk wachtwoord");
         }
 
         try {
@@ -54,18 +56,18 @@ public class AdminServiceImp implements AdminService{
     }
 
     @Override
-    public String createTeacher(CreateAppUserRequest createTeacher) {
+    public String createTeacher(CreateAppUserRequest createTeacher) throws AlreadyInUseException, WeakPasswordException {
 
         if(adminRepository.existsByEmail(createTeacher.getEmail())){
-            throw new RuntimeException(createTeacher.getEmail() + " Already in use!");
+            throw new AlreadyInUseException(createTeacher.getEmail() + " already in use!");
         }
 
         if (adminRepository.existsById(createTeacher.getUsername())){
-            throw new RuntimeException(createTeacher.getUsername() + " Already in use!");
+            throw new AlreadyInUseException(createTeacher.getUsername() + " already in use!");
         }
 
         if(isValidPassword(createTeacher.getPassword())){
-            throw new RuntimeException("Geen sterk wachtwoord");
+            throw new WeakPasswordException("Geen sterk wachtwoord");
         }
 
         try {
