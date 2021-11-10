@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -31,7 +32,9 @@ public class AdminController {
     }
 
     @PostMapping("create/admin")
-    public ResponseEntity<Object> createAdmin(@RequestBody CreateAppUserRequest createAdmin){
+    public ResponseEntity<Object> createAdmin(
+            @Valid
+            @RequestBody CreateAppUserRequest createAdmin){
 
         String newUsername = adminService.createAdmin(createAdmin);
 
@@ -40,6 +43,7 @@ public class AdminController {
 
         return ResponseEntity.created(location).build();
     }
+
 
     @PostMapping("create/teacher")
     public ResponseEntity<Object> createTeacher(@RequestBody CreateAppUserRequest createTeacher){

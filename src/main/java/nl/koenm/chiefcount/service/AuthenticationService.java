@@ -2,6 +2,8 @@ package nl.koenm.chiefcount.service;
 
 import nl.koenm.chiefcount.dto.request.AuthenticationRequest;
 import nl.koenm.chiefcount.dto.response.AuthenticationResponse;
+import nl.koenm.chiefcount.model.ApplicationUser;
+import nl.koenm.chiefcount.repository.AuthenticationRepository;
 import nl.koenm.chiefcount.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,16 +15,18 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserAuthenticateService {
+public class AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
+    private final AuthenticationRepository authenticationRepository;
     final JwtUtil jwtUtl;
 
     @Autowired
-    public UserAuthenticateService(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, JwtUtil jwtUtl) {
+    public AuthenticationService(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, AuthenticationRepository authenticationRepository, JwtUtil jwtUtl) {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
+        this.authenticationRepository = authenticationRepository;
         this.jwtUtl = jwtUtl;
     }
 
@@ -35,8 +39,7 @@ public class UserAuthenticateService {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username, password)
             );
-        }
-        catch (BadCredentialsException ex) {
+        } catch (BadCredentialsException ex) {
             throw new UsernameNotFoundException("Incorrect username or password");
         }
 
@@ -45,5 +48,15 @@ public class UserAuthenticateService {
         final String jwt = jwtUtl.generateToken(userDetails);
 
         return new AuthenticationResponse(jwt);
+    }
+
+    public ApplicationUser findUserById(String username) {
+
+        if (!authenticationRepository.existsById(username)) {
+            throw new RuntimeException("User does not exist");
+        }
+        return authenticationRepository.findById(username).orElse(null);
+
+
     }
 }

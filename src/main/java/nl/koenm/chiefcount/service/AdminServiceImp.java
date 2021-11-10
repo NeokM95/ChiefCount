@@ -21,6 +21,19 @@ public class AdminServiceImp implements AdminService{
 
     @Override
     public String createAdmin(CreateAppUserRequest createAdmin) {
+
+        if(adminRepository.existsByEmail(createAdmin.getEmail())){
+            throw new RuntimeException(createAdmin.getEmail() + " Already in use!");
+        }
+
+        if (adminRepository.existsById(createAdmin.getUsername())){
+            throw new RuntimeException(createAdmin.getUsername() + " Already in use!");
+        }
+
+        if(isValidPassword(createAdmin.getPassword())){
+            throw new RuntimeException("Geen sterk wachtwoord");
+        }
+
         try {
             String encryptedPassword = passwordEncoder.encode(createAdmin.getPassword());
 
@@ -29,12 +42,11 @@ public class AdminServiceImp implements AdminService{
             user.setPassword(encryptedPassword);
             user.setEmail(createAdmin.getEmail());
             user.setEnabled(true);
-//            user.addAuthority("ROLE_STUDENT");
-//            user.addAuthority("ROLE_TEACHER");
             user.addAuthority("ROLE_ADMIN");
 
             ApplicationUser newUser = adminRepository.save(user);
             return newUser.getUsername();
+
         }
         catch (Exception ex) {
             throw new RuntimeException("Cannot create Admin.");
@@ -43,6 +55,19 @@ public class AdminServiceImp implements AdminService{
 
     @Override
     public String createTeacher(CreateAppUserRequest createTeacher) {
+
+        if(adminRepository.existsByEmail(createTeacher.getEmail())){
+            throw new RuntimeException(createTeacher.getEmail() + " Already in use!");
+        }
+
+        if (adminRepository.existsById(createTeacher.getUsername())){
+            throw new RuntimeException(createTeacher.getUsername() + " Already in use!");
+        }
+
+        if(isValidPassword(createTeacher.getPassword())){
+            throw new RuntimeException("Geen sterk wachtwoord");
+        }
+
         try {
             String encryptedPassword = passwordEncoder.encode(createTeacher.getPassword());
 
@@ -51,7 +76,6 @@ public class AdminServiceImp implements AdminService{
             user.setPassword(encryptedPassword);
             user.setEmail(createTeacher.getEmail());
             user.setEnabled(true);
-//            user.addAuthority("ROLE_STUDENT");
             user.addAuthority("ROLE_TEACHER");
 
             ApplicationUser newUser = adminRepository.save(user);
@@ -90,5 +114,28 @@ public class AdminServiceImp implements AdminService{
         catch (Exception ex) {
             throw new RuntimeException("Cannot create list.");
         }
+    }
+
+    private boolean isValidPassword(String password) {
+        final int MIN_LENGTH = 8;
+        final int MIN_DIGITS = 1;
+        final int MIN_LOWER = 1;
+        final int MIN_UPPER = 1;
+        final int MIN_SPECIAL = 1;
+        final String SPECIAL_CHARS = "@#$%&*!()+=-_";
+
+        long countDigit = password.chars().filter(ch -> ch >= '0' && ch <= '9').count();
+        long countLower = password.chars().filter(ch -> ch >= 'a' && ch <= 'z').count();
+        long countUpper = password.chars().filter(ch -> ch >= 'A' && ch <= 'Z').count();
+        long countSpecial = password.chars().filter(ch -> SPECIAL_CHARS.indexOf(ch) >= 0).count();
+
+        boolean validPassword = true;
+        if (password.length() < MIN_LENGTH) validPassword = false;
+        if (countLower < MIN_LOWER) validPassword = false;
+        if (countUpper < MIN_UPPER) validPassword = false;
+        if (countDigit < MIN_DIGITS) validPassword = false;
+        if (countSpecial < MIN_SPECIAL) validPassword = false;
+
+        return !validPassword;
     }
 }

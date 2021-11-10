@@ -20,20 +20,10 @@ public class ApplicationUser {
 
 
     @Id
-    @NotBlank(message = "Username cannot be blank")
-    @Size(min = 4, message = "Username must be at least 4 characters")
     private String username;
-
-    @NotBlank(message = "Password cannot be blank")
-    @Size(min = 8, message = "Password must be at least 8 characters")
     private String password;
-
-    @Email(message = "Enter a valid email")
     private String email;
 
-
-
-    @Column(name = "enabled")
     private boolean enabled;
 
     @OneToMany(
