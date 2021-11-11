@@ -6,12 +6,15 @@ import nl.koenm.chiefcount.exceptions.WeakPasswordException;
 import nl.koenm.chiefcount.model.ApplicationUser;
 import nl.koenm.chiefcount.service.AdminService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/admin")
@@ -33,6 +36,12 @@ public class AdminController {
         return adminService.getAllUsers();
     }
 
+    @GetMapping("/view/{username}")
+    public Optional<ApplicationUser> getUserByUsername(@PathVariable String username){
+
+        return adminService.getUserByUsername(username);
+    }
+
     @PostMapping("create/admin")
     public ResponseEntity<Object> createAdmin(
             @Valid
@@ -45,7 +54,6 @@ public class AdminController {
 
         return ResponseEntity.created(location).build();
     }
-
 
     @PostMapping("create/teacher")
     public ResponseEntity<Object> createTeacher(@RequestBody CreateAppUserRequest createTeacher) throws AlreadyInUseException, WeakPasswordException {

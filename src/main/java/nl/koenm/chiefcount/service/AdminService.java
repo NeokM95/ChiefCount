@@ -6,6 +6,7 @@ import nl.koenm.chiefcount.exceptions.WeakPasswordException;
 import nl.koenm.chiefcount.model.ApplicationUser;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AdminService {
 
@@ -17,4 +18,6 @@ public interface AdminService {
     String createStudent(CreateAppUserRequest createStudent);
 
     List<ApplicationUser> getAllUsers();
+
+    Optional<ApplicationUser> getUserByUsername(String username);
 }

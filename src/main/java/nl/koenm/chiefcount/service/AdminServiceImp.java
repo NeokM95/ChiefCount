@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AdminServiceImp implements AdminService{
@@ -116,6 +117,11 @@ public class AdminServiceImp implements AdminService{
         catch (Exception ex) {
             throw new RuntimeException("Cannot create list.");
         }
+    }
+
+    @Override
+    public Optional<ApplicationUser> getUserByUsername(String username) {
+        return adminRepository.findById(username);
     }
 
     private boolean isValidPassword(String password) {
