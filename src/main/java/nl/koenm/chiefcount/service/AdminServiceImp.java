@@ -124,6 +124,11 @@ public class AdminServiceImp implements AdminService{
         return adminRepository.findById(username);
     }
 
+    @Override
+    public void deleteUserByUsername(String username) {
+        adminRepository.deleteById(username);
+    }
+
     private boolean isValidPassword(String password) {
         final int MIN_LENGTH = 8;
         final int MIN_DIGITS = 1;

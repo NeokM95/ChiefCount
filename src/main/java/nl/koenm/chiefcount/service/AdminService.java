@@ -20,4 +20,6 @@ public interface AdminService {
     List<ApplicationUser> getAllUsers();
 
     Optional<ApplicationUser> getUserByUsername(String username);
+
+    void deleteUserByUsername(String username);
 }

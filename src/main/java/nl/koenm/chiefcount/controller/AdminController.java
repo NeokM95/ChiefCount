@@ -77,5 +77,13 @@ public class AdminController {
         return ResponseEntity.created(location).build();
     }
 
+    @DeleteMapping("delete/{username}")
+    public  ResponseEntity<Object> deleteUserByUsername(@PathVariable String username){
+
+        adminService.deleteUserByUsername(username);
+
+        return ResponseEntity.ok(username + " successfully deleted.");
+    }
+
 
 }

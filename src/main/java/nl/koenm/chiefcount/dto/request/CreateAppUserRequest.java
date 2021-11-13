@@ -25,4 +25,6 @@ public class CreateAppUserRequest {
     @Size(min = 8, max = 20, message = "Password should be at least 8 characters")
     private String password;
 
+    private boolean isStudent = false;
+
 }

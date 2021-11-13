@@ -31,6 +31,8 @@ public class ApplicationUser {
     @Column
     private int multiply;
 
+    private boolean isStudent;
+
     private boolean enabled;
 
     @OneToMany(
