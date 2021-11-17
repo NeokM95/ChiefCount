@@ -1,6 +1,6 @@
 -- admin123 (koen)
 -- teacher123 (melissa)
--- student123 (lynn)
+-- student123 (lynn, jason, jamie, mathias, julia, ivy-mae, marley)
 
 INSERT INTO users(username, password, email, is_student, enabled, plus_minus, divide, multiply)
 VALUES ('koen', '$2a$10$j4hF9GhP.53ttXOlxkt0sOpmI1I8sGUOwFEVcoz1oX.r8DPvW1qHe', 'koenm@chiefcount.nl', FALSE, TRUE, 3,
